@@ -1,0 +1,57 @@
+*{
+    /* background: red;
+    color: white; */
+    padding: auto;
+
+}
+.bg-table{
+    background: #d2ffd2;
+}
+
+.rounded-btn {
+   /* background-color: #d2ffd2; /* Color de fondo */
+    border: none;              /* Sin borde */
+    color: white;               /* Color del texto */
+    padding: 2px 2px;         /* Espaciado interno */
+    text-align: center;         /* Alineación del texto */
+    text-decoration: none;      /* Sin subrayado */
+    display: inline-block;      /* Mostrar en línea */
+           /* Tamaño de fuente */
+           /* Margen */
+    cursor: pointer;            /* Cambiar cursor al pasar por encima */
+    border-radius: 20px;        /* Hacer el botón redondeado */
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
+  }
+  
+  .rounded-btn:hover {
+    background-color: #c6eec6; /* Color de fondo al pasar por encima */
+  }
+  .button-ubication{
+    text-align: end;
+    align-content: center;
+  }
+  .password-input{
+   width: 600px !important;
+   /* background: yellow !important; */
+  }
+
+  /* .password-input input {
+  width: 390px;
+  }
+  .p-password-panel{
+    width: 390px;
+  }
+  .p-inputtext{
+    background: red;
+  } */
+  .p-inputtext {
+  width:300px;
+  background:white !important;
+}
+.p-inputtext input{
+  width:290px;
+}
+.password-inputx .password-inputx{
+  width: 500px !important;
+  background: red !important;
+ }

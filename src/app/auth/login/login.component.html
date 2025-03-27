@@ -1,0 +1,75 @@
+<div class="hold-transition login-page">
+  <div class="login-box animate__animated animate__backInLeft">
+    <div class="login-logo">
+      <h3>Login</h3>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Ingreso de credenciales</p>
+
+        <form (ngSubmit)="onSubmit()">
+          <div class="input-group mb-3">
+            <!-- <input type="text" class="form-control" placeholder="Usuario" name = "usuario" [(ngModel)]="usuario" > -->
+            <app-inputtext
+              type="text"
+              [value]="usuario"
+              placeHolder="Introduce el Usuario"
+              (valueChange)="onInputValueChange($event)"
+            />
+            <!-- <div class="input-group-append">
+              <div class="input-group-text">
+                <span
+                  class="fas fa-envelope"
+                  style="color: rgb(48, 37, 37)"
+                ></span>
+              </div>
+            </div> -->
+          </div>
+          <!-- <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Password" name="pass" [(ngModel)]="password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock" style="color: rgb(48, 37, 37);"></span>
+                </div>
+              </div>
+            </div> -->
+          <div class="input-group mb-3">
+            <app-inputpassword
+              (valueChange)="onInputPasswordValueChange($event)"
+              [password]="password"
+            />
+            <!-- <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock" style="color: rgb(48, 37, 37)"></span>
+              </div>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <!-- <input type="checkbox" id="remember">
+                  <label for="remember" class="ml-2">
+                    Recordarme
+                  </label> -->
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-outline-secondary btn-block">
+                Ingresar
+              </button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <p class="mb-1">
+          <a href="forgot-password" class="link-pass"> Olvidé mi contraseña</a>
+        </p>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+</div>
