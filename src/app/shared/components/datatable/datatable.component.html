@@ -2,54 +2,28 @@
   #dt2
   [value]="data"
   styleClass="p-datatable-gridlines"
-  [paginator]="true"
   [rows]="rows"
-  [globalFilterFields]="filtros"
   lazy="true"
 >
-  <ng-template pTemplate="caption">
-    <p-toolbar styleClass="mb-12 gap-2">
-      <input
-        pInputText
-        type="text"
-        [(ngModel)]="globalFilter"
-        (input)="dt2.filterGlobal(globalFilter, 'contains')"
-        [style]="estilosHijo"
-        [placeholder]="placeHolder"
-      />
-      <div style="display: flex">
-        <p-button
-          class="rounded-btn button-ubication"
-          [rounded]="true"
-          [text]="true"
-          pTooltip="Adicionar"
-          (onClick)="newRegistry()"
-          label=""
-          icon="fas fa-solid fa-plus"
-          Style="font-size: x-large;"
+  @if(enableFind){<ng-template pTemplate="caption">
+    <p-toolbar styleClass="mb-4 gap-2">
+      <div>
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="findSession"
+          [placeholder]="placeHolder"
         />
-        <div *ngIf="habilitaExportar" style="border: 1px solid red; color: red">
-          <small>Exportar</small>
-          <p-button
-            class="rounded-btn button-ubication"
-            [rounded]="true"
-            [text]="true"
-            (onClick)="exportToCSV()"
-            label="CSV"
-            icon="far fa-thin fa-file-excel"
-          />
-          <p-button
-            class="rounded-btn button-ubication"
-            [rounded]="true"
-            [text]="true"
-            (onClick)="exportToPDF()"
-            label="PDF"
-            icon="far fa-thin fa-file-pdf"
-          />
-        </div>
+        <p-button
+          Style="margin-left: 5px"
+          pButton
+          type="button"
+          label="Buscar Sesion de Usuario"
+          (onClick)="onCLickFind()"
+        />
       </div>
-    </p-toolbar>
-  </ng-template>
+    </p-toolbar> </ng-template
+  >}
 
   <ng-template pTemplate="header">
     <tr>
@@ -59,36 +33,12 @@
         pSortableColumn="{{ col.field }}"
       >
         {{ col.header }}
-        <p-sortIcon [field]="col.field" />
       </th>
-      <th class="bg-table">Acciones</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData>
     <tr>
       <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
-      <td>
-        <p-button
-          Style="font-size: x-large;"
-          pButton
-          type="button"
-          icon="fas fa-solid fa-pen"
-          (click)="editRegistry(rowData)"
-          [rounded]="true"
-          [text]="true"
-          pTooltip="Editar"
-        />
-        <p-button
-          Style="font-size: x-large"
-          pButton
-          type="button"
-          icon="fas fa-regular fa-trash"
-          (click)="delRegistry(rowData)"
-          [rounded]="true"
-          [text]="true"
-          pTooltip="Eliminar"
-        />
-      </td>
     </tr>
   </ng-template>
 </p-table>

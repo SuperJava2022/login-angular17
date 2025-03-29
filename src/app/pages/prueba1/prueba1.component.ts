@@ -1,35 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../services/session.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-prueba1',
   templateUrl: './prueba1.component.html',
-  styleUrl: './prueba1.component.css'
+  styleUrl: './prueba1.component.css',
 })
-export class Prueba1Component {
-  password:string='';
+export class Prueba1Component implements OnInit {
+  arraySessions = [];
+  constructor(private session: SessionService) {}
+
+  ngOnInit(): void {
+    const responses = this.session.FindAllSession('').subscribe(
+      (response: any) => {
+        console.log(response);
+        this.arraySessions = response;
+      },
+      (error) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Error en búsqueda de sesiones...' + error,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    );
+  }
+
   columns = [
     { field: 'id', header: 'Id' },
-    { field: 'name', header: 'Name' },
-    { field: 'age', header: 'Age' },
-    { field: 'email', header: 'Email' },
-
+    { field: 'userName', header: 'Usuario' },
+    { field: 'status', header: 'Estado' },
+    { field: 'dateStart', header: 'Fecha Inicio' },
   ];
-
-  filtros =[ 'id','name','age','email' ]
-
-  data = [
-    { id:'1', name: 'John Doe', age: 30, email: 'john@example.com' },
-    { id:'2', name: 'Jane Doe', age: 25, email: 'janedoe@example.com' },
-    { id:'3', name: 'Luis Doe', age: 26, email: 'luisdoe@gmail.com' },
-    { id:'4', name: 'Luchito Doe', age: 29, email: 'luchitodoe@example.com' },
-    { id:'5', name: 'Manuel Doe', age: 50, email: 'manueldoe@example.com' },
-    { id:'6', name: 'Masha Doe', age: 43, email: 'mashadoe@example.com' },
-    { id:'7', name: 'Scarlet Doe', age: 19, email: 'scarletdoe@example.com' },
-    { id:'8', name: 'Algo Doe', age: 33, email: 'algodoe@example.com' },
-    { id:'9', name: 'Manuel2 Doe', age: 50, email: 'manueldoe@example.com' },
-    { id:'10', name: 'Masha2 Doe', age: 43, email: 'mashadoe@example.com' },
-    { id:'11', name: 'Scarlet2 Doe', age: 19, email: 'scarletdoe@example.com' },
-    { id:'12', name: 'Algo2 Doe', age: 33, email: 'algodoe@example.com' },
-  ];
-
 }

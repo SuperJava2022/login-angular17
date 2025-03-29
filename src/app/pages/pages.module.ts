@@ -21,6 +21,7 @@ import { Prueba1Component } from './prueba1/prueba1.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputpasswordComponent } from "../shared/components/inputpassword/inputpassword.component";
+import { Prueba2Component } from './prueba2/prueba2.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { InputpasswordComponent } from "../shared/components/inputpassword/input
     HeroesComponent,
     ToasterComponent,
     PagesComponent,
-    Prueba1Component
+    Prueba1Component,
+    Prueba2Component
   ],
   imports: [
     CommonModule,

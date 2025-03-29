@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  usuario = 'admin';
-  password = 'admin';
+  usuario = '';
+  password = '';
 
   usuarios!: Usuarios;
 
@@ -26,14 +26,17 @@ export class LoginComponent {
 
     // location.href='dashboard';
     //this.usuariosSvc.obtenerUsuarios(this.usuario,this.pass).subscribe((res:any)=>{
-    this.usuariosSvc.sendAuthLogin(datos).subscribe(
+    this.usuariosSvc.sendAuthLogin(this.usuario).subscribe(
       (response: any) => {
-        const token = response.headers.get('Authorization');
+        const token = response.body.token;
+
         this.usuariosSvc.saveToken(token);
 
-        this.userAuthenticated(datos.usuario);
+        this.userAuthenticated(this.usuario);
       },
       (error) => {
+        console.log(error);
+
         Swal.fire({
           position: 'top-end',
           icon: 'error',
@@ -46,38 +49,31 @@ export class LoginComponent {
   }
 
   userAuthenticated(usuario: any) {
-    this.usuariosSvc
-      .getLoginUsersAuthenticated(usuario)
-      .subscribe((response: any) => {
-        if (response && response.length > 0) {
-          const usuario = response[0];
+    this.usuariosSvc.getCreateSession(usuario).subscribe((response: any) => {
+      const temp = response;
 
-          this.usuarios = {
-            username: usuario.codigoUsuario,
-            password: usuario.password,
-          };
-
-          localStorage.setItem('usuario', 'true');
-          localStorage.setItem('nombre', this.usuarios.username);
-
-          location.href = 'dashboard';
-        } else {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'El usuario no existe...',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
+      if (temp) {
+        sessionStorage.setItem('usuario', 'true');
+        sessionStorage.setItem('username', temp.userName);
+        sessionStorage.setItem('idsession', temp.id);
+        location.href = 'dashboard';
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El usuario no existe...',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
   onInputValueChange(value: string) {
     this.usuario = value; // Pasar el valor capturado al input dinámico
-    console.log('user: ', this.usuario);
+    // console.log('user: ', this.usuario);
   }
   onInputPasswordValueChange(value: string) {
     this.password = value; // Pasar el valor capturado al input dinámico
-    console.log('pass: ', this.password);
+    // console.log('pass: ', this.password);
   }
 }

@@ -1,4 +1,13 @@
-import { Component, effect, HostListener, Injector, OnInit, signal, untracked } from '@angular/core';
+import {
+  Component,
+  effect,
+  HostListener,
+  Injector,
+  OnInit,
+  signal,
+  untracked,
+} from '@angular/core';
+import { SessionService } from '../../pages/services/session.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,67 +15,48 @@ import { Component, effect, HostListener, Injector, OnInit, signal, untracked } 
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+  nombreUsuario = sessionStorage.getItem('username');
+  enableAdmin = this.nombreUsuario === 'Admin' ? true : false;
 
-  nombreUsuario = localStorage.getItem('nombre');
-  // public actividad = signal(true);
-  // private time:any;
-
-  // @HostListener('mousemove',['$event'])
-  // public enviarMouse(btn:any){
-  //   this.actividad.set(true);
-  // }
-
-  // constructor(private inject:Injector){}
-
-  // ngOnInit(): void {
-  // this.metodoInactividad();
-  // }
-
-  // private metodoInactividad(){
-
-  //   effect(()=>{
-  //     if(this.actividad()){
-  //       console.log('La actividad cambia ',this.actividad());
-  //       if(this.time){
-  //         clearTimeout(this.time);
-  //       }
-  //      this.time= setTimeout(()=>{
-  //         alert('Se va a cerrar la ventana por inactividad!!!');
-  //         window.close();
-  //       },10000);
-  //       untracked(()=>{
-  //         this.actividad.set(false);
-  //       });
-  //     }
-      
-  //   },{injector:this.inject});
-
-  // }
-
+  constructor(private sesion: SessionService) {}
 
   public menuItems: any[] = [
-    {
+    /*{
       titulo: 'Dashboard',
       icono: 'nav-icon fas fa-tachometer-alt',
-      url:'#',
-      hasSubmenu:true,
+      url: '#',
+      hasSubmenu: true,
       submenu: [
         { titulo: 'DataTable', url: 'heroes', icon: 'far fa-circle' },
         { titulo: 'Toaster', url: 'toaster', icon: 'far fa-circle' },
       ],
+    },*/
+    {
+      titulo: '1. Consultar Sesión Activa',
+      icono: 'fas fa-list',
+      url: 'prueba2',
+      hasSubmenu: false,
     },
     {
-      titulo:'Tabla Luis',
-      icono:'fas fa-splotch',
-      url:'prueba1',
-      hasSubmenu:false,
-      
+      titulo: '2. Listar Sesiones Activas',
+      icono: 'fas fa-address-book',
+      url: 'prueba1',
+      hasSubmenu: false,
     },
   ];
 
   logout() {
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('nombre');
+    const user = sessionStorage.getItem('username') + '';
+    this.sesion.CloseSession(user).subscribe(
+      (response: any) => {
+        // console.log(response);
+      }
+      // (error) => {}
+    );
+
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('nombre');
+    sessionStorage.removeItem('idsession');
 
     location.href = 'login';
   }
